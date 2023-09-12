@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "dled.h"
+#include "../src/dled.h"
 
 
 void updata(dled_t *led) {
@@ -37,7 +37,7 @@ dled_task_t task1[] = {
 
 int main() {
     //printf("Hello, World!\n");
-    //led_create_task(&led1,task,1);
+    led_create_task(&led1,task,1);
     led_create_task(&led, task1, 1);
     led_create_task(&led, task, 2);
 
