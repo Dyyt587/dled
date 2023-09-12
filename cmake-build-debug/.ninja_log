@@ -1,0 +1,7 @@
+# ninja log v5
+1	37	7161928863247982	CMakeFiles/untitled1.dir/main.c.obj	f7e6ed24b35a46fc
+44	94	7161928863784731	untitled1.exe	61f5bd1805c6d30b
+3	44	7161928863313147	CMakeFiles/untitled1.dir/dled.c.obj	c21871851b9eb3e7
+3	52	7161930395721062	CMakeFiles/untitled1.dir/main.c.obj	9264953c52ac8435
+1	63	7161930395842637	CMakeFiles/untitled1.dir/dled.c.obj	1f6bab6bf1b60c40
+64	110	7161930396283162	untitled1.exe	61f5bd1805c6d30b
