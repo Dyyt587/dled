@@ -38,20 +38,17 @@ void led_create_task(dled_t *led, dled_task_t task[], uint16_t task_times) {
         new_task->task_times = task_times;
         new_task->task_index = 0;
         new_task->task_tick = 0;
-
         new_task->task = task;
-
-
         //可能存在正在运行或等待运行的任务，放入bpk队列等待之后的运行
         task_t *this_task;
         list_for_each_entry(this_task, (&active_task_start), list) {
             if (this_task->led == led) {
-                list_move_tail(&this_task->list, &(bpk_task_start));
-                break;//bug记录,由于节点被移动，删除会导致进入bpk_task，从而导致死循环
-            }
+            list_move_tail(&this_task->list, &(bpk_task_start));
+            break;//bug记录,由于节点被移动，删除会导致进入bpk_task，从而导致死循环
         }
+    }
 
-        list_add((&(new_task->list)), (&active_task_start));
+    list_add((&(new_task->list)), (&active_task_start));
 
     } else while (1);
 
