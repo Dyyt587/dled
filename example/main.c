@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "../src/dled.h"
+#include <pthread.h>
 
 
 void updata(dled_t *led) {
@@ -35,11 +36,26 @@ dled_task_t task1[] = {
         TASK_END
 };
 
+int * thread(void * arg)
+{
+    pthread_t newthid;
+
+    newthid = pthread_self();
+    printf("this is a new thread, thread ID = %d\n", newthid);
+    led_create_task(&led, task, 2);
+
+    return 0;
+}
+
 int main() {
     //printf("Hello, World!\n");
     led_create_task(&led1,task,1);
     led_create_task(&led, task1, 1);
-    led_create_task(&led, task, 2);
+
+    pthread_t thid;
+    if(pthread_create(&thid, 0, (void *)thread, 0) != 0) {
+        printf("thread creation failed\n");
+    }
 
     while (1) {
         //printf("run\n");

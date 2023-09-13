@@ -51,13 +51,13 @@ build cmake_object_order_depends_target_untitled1: phony || CMakeFiles/untitled1
 
 build CMakeFiles/untitled1.dir/main.c.obj: C_COMPILER__untitled1_unscanned_Debug C$:/Users/80520/CLionProjects/dled/example/main.c || cmake_object_order_depends_target_untitled1
   DEP_FILE = CMakeFiles\untitled1.dir\main.c.obj.d
-  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  FLAGS = -pthread -g -std=gnu11 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\untitled1.dir
   OBJECT_FILE_DIR = CMakeFiles\untitled1.dir
 
 build CMakeFiles/untitled1.dir/C_/Users/80520/CLionProjects/dled/src/dled.c.obj: C_COMPILER__untitled1_unscanned_Debug C$:/Users/80520/CLionProjects/dled/src/dled.c || cmake_object_order_depends_target_untitled1
   DEP_FILE = CMakeFiles\untitled1.dir\C_\Users\80520\CLionProjects\dled\src\dled.c.obj.d
-  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  FLAGS = -pthread -g -std=gnu11 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\untitled1.dir
   OBJECT_FILE_DIR = CMakeFiles\untitled1.dir\C_\Users\80520\CLionProjects\dled\src
 
@@ -70,7 +70,7 @@ build CMakeFiles/untitled1.dir/C_/Users/80520/CLionProjects/dled/src/dled.c.obj:
 # Link the executable untitled1.exe
 
 build untitled1.exe: C_EXECUTABLE_LINKER__untitled1_Debug CMakeFiles/untitled1.dir/main.c.obj CMakeFiles/untitled1.dir/C_/Users/80520/CLionProjects/dled/src/dled.c.obj
-  FLAGS = -g
+  FLAGS = -pthread -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\untitled1.dir
   POST_BUILD = cd .

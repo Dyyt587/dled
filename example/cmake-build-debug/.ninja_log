@@ -1,5 +1,9 @@
 # ninja log v5
-2	70	7162096701896098	build.ninja	1d578dda1785c1cb
-1	40	7161938959831643	CMakeFiles/untitled1.dir/main.c.obj	47cc926f3f9bb1ba
-41	88	7161938960272864	untitled1.exe	1338ab507f257013
-0	50	7161938399244055	CMakeFiles/untitled1.dir/C_/Users/80520/CLionProjects/dled/src/dled.c.obj	a427c5b8fa2bdeff
+0	55	7163189990738010	build.ninja	1d578dda1785c1cb
+48	100	7162332457692602	untitled1.exe	a876f47ba06390f0
+1	42	7162256832691903	CMakeFiles/untitled1.dir/main.c.obj	687d69a656dd42b9
+2	48	7162332457199103	CMakeFiles/untitled1.dir/C_/Users/80520/CLionProjects/dled/src/dled.c.obj	85feae2ad318b5d3
+1	55	7163190295158681	CMakeFiles/untitled1.dir/C_/Users/80520/CLionProjects/dled/src/dled.c.obj	85feae2ad318b5d3
+55	111	7163190295691675	untitled1.exe	a876f47ba06390f0
+1	47	7163190507070124	CMakeFiles/untitled1.dir/main.c.obj	687d69a656dd42b9
+48	97	7163190507529123	untitled1.exe	a876f47ba06390f0

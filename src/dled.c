@@ -17,6 +17,7 @@ typedef struct {
 
 static LIST_HEAD(active_task_start);
 static LIST_HEAD(bpk_task_start);
+static LIST_HEAD(gc_task_start);
 //static uint8_t is_init = 0;
 
 
@@ -31,7 +32,16 @@ void led_safe_check(dled_t *led) {
 void led_create_task(dled_t *led, dled_task_t task[], uint16_t task_times) {
     //if (is_init != INITED) __led_init();
     led_safe_check(led);
-    task_t *new_task = (task_t *) malloc(sizeof(task_t));
+    task_t *new_task=0;
+//    if(list_empty(&gc_task_start)){
+//        new_task = (task_t *) malloc(sizeof(task_t));
+//    }else{
+//        //将垃圾回收区的块重新使用
+//        new_task = list_entry(gc_task_start.next,task_t,list);
+//        __list_del(new_task->list.prev,new_task->list.prev);
+//    }
+       new_task = (task_t *) malloc(sizeof(task_t));
+
     //创建任务并挂载到活动列表中
     if (new_task != NULL && task != NULL) {
         new_task->led = led;
@@ -74,7 +84,9 @@ void led_handle(void) {
         static uint16_t time = 0;
 
         task_t *this_task;
-        list_for_each_entry(this_task, (&active_task_start), list) {
+        static task_t* will_gc_task=0;
+        list_for_each_entry(this_task, (&active_task_start), list)
+         {
             this_task->task_tick -= time;
             if (this_task->task_tick <= 0) {
                 //超时执行更新数据任务
@@ -90,10 +102,17 @@ void led_handle(void) {
 
                     this_task->task_index = 0;
                     if (this_task->task_times != TASK_TIMES_FOREVER)this_task->task_times--;
-                    //printf("task_times %d\n",this_task->task_times);
-                    if (this_task->task_times <= 0) {
-                        //销毁任务
+                    if (this_task->task_times <= 0)
+                    {
+                        //销毁任务，销毁到回收区中
                         __list_del(this_task->list.prev, this_task->list.next);
+                        if(will_gc_task!=0){
+                            //有上一个要gc的task，先gc然后为这次的腾出位置
+                            list_add(&(will_gc_task->list),&gc_task_start);
+                            will_gc_task=0;
+                        }
+                        will_gc_task = this_task;
+
                         //可能存在待恢复的任务(之前中断的)，现在恢复
                         task_t *thisTask;
                         list_for_each_entry(thisTask, (&bpk_task_start), list) {
@@ -108,6 +127,11 @@ void led_handle(void) {
             } else {
             }
 
+        }
+        if(will_gc_task!=0){
+            //有上一个要gc的task，将它丢入回收区
+            list_add(&(will_gc_task->list),&gc_task_start);
+            will_gc_task =0;
         }
         time = get_min_tick();
         dledDelay(time);
