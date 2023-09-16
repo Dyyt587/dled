@@ -235,5 +235,17 @@ static inline void list_move_tail(struct list_head *list,
     for (pos = (head)->prev;  pos != (head); \
             pos = pos->prev)
 
+/**
+ * list_move_tail - delete from one list and add as another's tail
+ * @list: the entry to move
+ * @head: the head that will follow our entry
+ */
+static inline int list_length(struct list_head *list) {
+    int cnt=0;
+    while(list->next != list){
+        cnt++;
+    }
+    return cnt;
+}
 
 #endif

@@ -36,30 +36,23 @@ dled_task_t task1[] = {
         TASK_END
 };
 
-int * thread(void * arg)
-{
-    pthread_t newthid;
-
-    newthid = pthread_self();
-    printf("this is a new thread, thread ID = %d\n", newthid);
-    led_create_task(&led, task, 2);
-
-    return 0;
-}
-
 int main() {
     //printf("Hello, World!\n");
     led_create_task(&led1,task,1);
-    led_create_task(&led, task1, 1);
+    led_create_task(&led1,task,1);
+    led_create_task(&led1,task,1);
+    led_create_task(&led1,task,1);
 
-    pthread_t thid;
-    if(pthread_create(&thid, 0, (void *)thread, 0) != 0) {
-        printf("thread creation failed\n");
-    }
 
+    int time=0;
     while (1) {
-        //printf("run\n");
+        time++;
         led_handle();
+        if(time%100==0){
+            led_create_task(&led1,task,1);
+            led_create_task(&led1,task,1);
+
+        }
     }
 
     return 0;

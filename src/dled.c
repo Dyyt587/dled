@@ -33,14 +33,17 @@ void led_create_task(dled_t *led, dled_task_t task[], uint16_t task_times) {
     //if (is_init != INITED) __led_init();
     led_safe_check(led);
     task_t *new_task=0;
-//    if(list_empty(&gc_task_start)){
-//        new_task = (task_t *) malloc(sizeof(task_t));
-//    }else{
-//        //将垃圾回收区的块重新使用
-//        new_task = list_entry(gc_task_start.next,task_t,list);
-//        __list_del(new_task->list.prev,new_task->list.prev);
-//    }
-       new_task = (task_t *) malloc(sizeof(task_t));
+    if(list_empty(&gc_task_start)){
+        new_task = (task_t *) malloc(sizeof(task_t));
+    }else{
+        //将垃圾回收区的块重新使用
+
+            //printf("\t\t\tuse the gc memory\n");
+
+        new_task = list_entry(gc_task_start.next,task_t,list);
+        __list_del(new_task->list.prev,new_task->list.prev);
+    }
+       //new_task = (task_t *) malloc(sizeof(task_t));
 
     //创建任务并挂载到活动列表中
     if (new_task != NULL && task != NULL) {
@@ -108,7 +111,7 @@ void led_handle(void) {
                         __list_del(this_task->list.prev, this_task->list.next);
                         if(will_gc_task!=0){
                             //有上一个要gc的task，先gc然后为这次的腾出位置
-                            list_add(&(will_gc_task->list),&gc_task_start);
+                            list_add_tail(&(will_gc_task->list),&gc_task_start);
                             will_gc_task=0;
                         }
                         will_gc_task = this_task;
@@ -130,10 +133,12 @@ void led_handle(void) {
         }
         if(will_gc_task!=0){
             //有上一个要gc的task，将它丢入回收区
-            list_add(&(will_gc_task->list),&gc_task_start);
+            list_add_tail(&(will_gc_task->list),&gc_task_start);
             will_gc_task =0;
         }
         time = get_min_tick();
+        //printf("\t\tgc length=%d\n",list_length(&gc_task_start));
+
         dledDelay(time);
         //sleep(time);
 #if 1
