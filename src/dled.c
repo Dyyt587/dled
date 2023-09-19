@@ -167,7 +167,7 @@ void dled_gc_clear(void)
 
         free(Task);
     }
-    printf("cleared\n");
+    //printf("cleared\n");
 
 }
 
