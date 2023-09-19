@@ -48,9 +48,13 @@ int main() {
     while (1) {
         time++;
         led_handle();
+//        if(time%100==0){
+//            led_create_task(&led1,task,1);
+//            led_create_task(&led1,task,1);
+//
+//        }
         if(time%100==0){
-            led_create_task(&led1,task,1);
-            led_create_task(&led1,task,1);
+             dled_gc_clear();
 
         }
     }

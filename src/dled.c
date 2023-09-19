@@ -148,3 +148,28 @@ void led_handle(void) {
 
     }
 }
+
+void dled_gc_clear(void)
+{
+    task_t *Task;
+//    list_for_each_entry(thisTask,&gc_task_start,list){
+//        task_t *Task=0;
+//        free(thisTask);
+//
+//
+//    }
+//    Task = list_entry(thisTask->list.next,task_t,list);
+    while(gc_task_start.next  != &gc_task_start)
+    {
+
+        Task = list_entry(gc_task_start.next,task_t,list);
+        list_del(gc_task_start.next);
+
+        free(Task);
+    }
+    printf("cleared\n");
+
+}
+
+
+

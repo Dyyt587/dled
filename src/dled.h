@@ -45,6 +45,6 @@ static void inline dledDelay(uint32_t time) {
 void led_create_task(dled_t *led, dled_task_t task[], uint16_t task_times);
 
 void led_handle(void);
-
+void dled_gc_clear(void);
 
 #endif
